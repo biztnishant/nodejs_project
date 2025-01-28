@@ -113,7 +113,7 @@ export const getEmailLayouts = async (
             })
             .exec();
         if (!emailLayouts || emailLayouts.length === 0) {
-            throw new AppError("Not found emailLayouts",400);
+            throw new AppError("No emailLayouts",400);
         }
         return res.status(200).json({
             success: true,
