@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS",                        // Use CommonJS modules
+    "esModuleInterop": true,                     // Allow default imports from CommonJS modules
+    "target": "ES2021",                          // Compile to ES2021
+    "moduleResolution": "node",                  // Resolve modules like Node.js
+    "sourceMap": true,                           // Generate source maps for debugging
+    "outDir": "dist",                            // Output directory for compiled JavaScript
+    "allowSyntheticDefaultImports": true,        // Allow default imports from modules without default exports
+    "lib": ["ES2021"],                           // Include the ES2021 standard library types
+    "strict": true,                              // Enable all strict type-checking options
+    "skipLibCheck": true,                        // Skip type checking of declaration files for faster builds
+    "forceConsistentCasingInFileNames": true     // Ensure consistent file naming casing
+  },
+  "include": [
+    "src/**/*.ts"  
+  ],
+  "exclude": [
+    "node_modules"  // Exclude the node_modules folder
+  ]
+}

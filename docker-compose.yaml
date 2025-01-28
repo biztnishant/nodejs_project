@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  node-app: #node application name
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: node-app
+    ports:
+      - "4000:3000"  # Expose the app's port 
+      #3000 is port number for docker application
+    environment:
+      # - DB_URL=mongodb://mongodb:27017/Db_newproject  # MongoDB service name used here
+      # - PORT=3000
+      - NODE_ENV=docker # Identify this environment as Docker
+      - DB_URL= # Leave empty to use dynamic selection logic in the code
+      - PORT=3000
+    depends_on:
+      - mongodb  # This means the Node.js app will only start after the MongoDB service has started. 
+                 # It ensures that MongoDB is available before the app tries to connect to it.
+    networks:
+      - app-network  #This tells Docker to connect the Node.js app to the app-network, 
+                     #which allows it to communicate with other services (like MongoDB) on the same network
+  mongodb:
+    image: mongo:latest
+    container_name: mongodb
+    ports:
+      - "27017:27017"  # Expose MongoDB's port to the host
+    networks:
+      - app-network
+    volumes:
+      - mongodb-data:/data/db  # Persist MongoDB data
+
+# Define the shared network
+networks:
+  app-network:
+    driver: bridge
+
+# Define the persistent volume for MongoDB data
+volumes:
+  mongodb-data:
