@@ -22,7 +22,7 @@ export const createEmailLayout = async (
     next: NextFunction
 ) => {
     try {  
-        const { backdropColor, canvasColor, textColor, fontFamily, initialBgColor, children } = (req as any).body as CreateEmailLayoutRequestBody;
+        const { backdropColor, canvasColor, textColor, fontFamily, initialBgColor, children } = (req as any).body as CreateEmailLayoutRequestBody;//this is type assertion with object
         const blockIds: mongoose.Schema.Types.ObjectId[] = [];
         // Process each block and save it
         for (const block of children) {
