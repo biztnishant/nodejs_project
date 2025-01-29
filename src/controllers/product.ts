@@ -231,7 +231,7 @@ export const searchProducts = async (req: Request, res: Response, next: NextFunc
     console.log("hh",query);
     const products = await ProductModel.find(query);
     // res.status(200).json({ data: products });
-    successHanlder(res,"",products);
+    successHanlder(res,`Get product with specific ${name}`,products);
   } catch (error) {
     next(error);
   }
