@@ -2,6 +2,7 @@ import { Request, Response,NextFunction } from "express";
 import ProductModel from "../models/product";
 import { AppError } from "../middleware/errorhandler";
 import CategoryModel from "../models/category";
+import { successHanlder } from "../middleware/successHandler";
 // Create Product
 // export const createProduct = async (req: Request, res: Response) => {
 //   try {
@@ -81,7 +82,8 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
       ...req.body,//using spread operator here
       // bufferImage,
     });
-    res.status(201).json({message:"Product successfully created",data:productData});
+    // res.status(201).json({message:"Product successfully created",data:productData});
+   successHanlder(res,"Product created successfully",productData,201);
   }catch(error:any){
     next(error);
   }
@@ -93,7 +95,8 @@ export const getAllProducts = async (req: Request, res: Response, next: NextFunc
     if (!products.length) {
       throw new AppError("No products found", 404);
     }
-    res.status(200).json({ message: "Products fetched successfully", data: products });
+    // res.status(200).json({ message: "Products fetched successfully", data: products });
+    successHanlder(res,"Products fetched successfully",products);
   } catch (error: any) {
     next(error);
   }
@@ -118,7 +121,8 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
     if (!updatedProduct) {
       throw new AppError("Product not found", 404);
     }
-    res.status(200).json({ message: "Product updated successfully", data: updatedProduct });
+    // res.status(200).json({ message: "Product updated successfully", data: updatedProduct });
+    successHanlder(res,"Product updated successfully",updatedProduct);
   } catch (error: any) {
     next(error);
   }
@@ -131,7 +135,8 @@ export const deleteProduct = async (req: Request, res: Response, next: NextFunct
     if (!deletedProduct) {
       throw new AppError("Product not found", 404);
     }
-    res.status(200).json({ message: "Product deleted successfully", data: deletedProduct });
+    // res.status(200).json({ message: "Product deleted successfully", data: deletedProduct });
+    successHanlder(res,"Product deleted successfully",deletedProduct);
   } catch (error: any) {
     next(error);
   }
@@ -164,10 +169,11 @@ export const groupProductsByCategory = async (req: Request, res: Response, next:
         $sort: { totalQuantity: -1 }, //  (descending)
       },
     ]);
-    res.status(200).json({
-      message: "Products grouped by category",
-      data: groupedProducts,
-    });
+    // res.status(200).json({
+    //   message: "Products grouped by category",
+    //   data: groupedProducts,
+    // });
+    successHanlder(res,"Products grouped by category",groupedProducts);
   } catch (error) {
     next(error);
   }
@@ -188,7 +194,8 @@ export const getProductByCategories=async(req:Request,res:Response,next:NextFunc
        $unwind:"$categoryDetails",
      },
     ]);
-      res.status(200).json({message:"Data fetched successfully",data:productbyCategory});
+      // res.status(200).json({message:"Data fetched successfully",data:productbyCategory});
+      successHanlder(res,"Fetched products by category successfully",productbyCategory);
   }catch(error:any){
     next(error);
   }
@@ -207,7 +214,8 @@ export const getProductByCategory=async(req:Request,res:Response,next:NextFuncti
       }));
     });
     const productByCategory = await Promise.all(categoryPromise)
-    res.status(200).json({message:"successfully fetched ",data:productByCategory});
+    // res.status(200).json({message:"successfully fetched ",data:productByCategory});
+    successHanlder(res,"Successfully fetched",productByCategory);
   }catch(error:any){
     next(error);
   }
@@ -222,7 +230,8 @@ export const searchProducts = async (req: Request, res: Response, next: NextFunc
     if(price) query.price = {$gt:100};
     console.log("hh",query);
     const products = await ProductModel.find(query);
-    res.status(200).json({ data: products });
+    // res.status(200).json({ data: products });
+    successHanlder(res,"",products);
   } catch (error) {
     next(error);
   }

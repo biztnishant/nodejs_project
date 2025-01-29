@@ -3,7 +3,7 @@ import mongoose from "mongoose";
 import EmailLayoutModel from "../models/emailLayout";
 import { BlockModel, BlockType, BlockProps, BlockStyle } from "../models/blockSchema"
 import { AppError } from "../middleware/errorhandler";
-
+import { successHanlder } from "../middleware/successHandler";
 interface CreateEmailLayoutRequestBody {
     backdropColor: string;
     canvasColor: string;
@@ -47,10 +47,11 @@ export const createEmailLayout = async (
         });
         // save the EmailLayout to the database
         const savedEmailLayout = await newEmailLayout.save();
-        res.status(201).json({
-            success: true,
-            emailLayout: savedEmailLayout,
-        });
+        // res.status(201).json({
+        //     success: true,
+        //     emailLayout: savedEmailLayout,
+        // });
+        successHanlder(res,"Successfully created emailLayout",savedEmailLayout);
     } catch (error: any) {
         console.error(error);
         next(error);
@@ -115,10 +116,11 @@ export const getEmailLayouts = async (
         if (!emailLayouts || emailLayouts.length === 0) {
             throw new AppError("No emailLayouts",400);
         }
-        return res.status(200).json({
-            success: true,
-            emailLayouts,
-        });
+        // return res.status(200).json({
+        //     success: true,
+        //     emailLayouts,
+        // });
+        successHanlder(res,"Successfully fetched emailLayouts",emailLayouts);
     } catch (error) {
         console.error("Error fetching email layouts:", error); //for testing purpose
         next(error);

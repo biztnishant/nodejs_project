@@ -1,11 +1,14 @@
+
 import { AppError } from "../middleware/errorhandler";
 import CategoryModel from "../models/category";
 import { Request, Response,NextFunction } from "express";
+import { successHanlder } from "../middleware/successHandler";
 
 export const createCategory=async(req:Request,res:Response,next:NextFunction)=>{
     try{
         const categoryData=await CategoryModel.create(req.body);
-        res.status(201).json({ message: "Product created successfully", data: categoryData });
+        // res.status(201).json({ message: "Product created successfully", data: categoryData });
+        successHanlder(res,"Created category successfully",categoryData);
     } catch (error: any) {
         // res.status(400).json({ message: "Error creating product", error: error.message });
         // if(error instanceof AppError){
