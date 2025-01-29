@@ -7,6 +7,6 @@ export interface SuccessResponse{
     data?:any;
 }
 
-export const successHanlder=(res:Response,message:string,data?:any ,status:number=200)=>{
+export const successHanlder=(res:Response,message:string,data?:any,status:number=200)=>{
 res.status(status).json({status,success:true,message,data,}as SuccessResponse);
 };

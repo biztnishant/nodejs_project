@@ -194,6 +194,9 @@ export const getProductByCategories=async(req:Request,res:Response,next:NextFunc
        $unwind:"$categoryDetails",
      },
     ]);
+    if(productbyCategory.length===0){
+      throw new AppError("There is not products by category",404);
+    }
       // res.status(200).json({message:"Data fetched successfully",data:productbyCategory});
       successHanlder(res,"Fetched products by category successfully",productbyCategory);
   }catch(error:any){
