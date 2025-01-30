@@ -62,7 +62,6 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
   try{
     console.log("Request body:", req.body);
     // const{name,description,price,isActive,quantity,category , manufacturingAddress}=req.body;
-   
     const image=req.file?.filename;
     // const bufferImage=req.file?.buffer;
     // console.log(req.file);
@@ -91,7 +90,9 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 // Get All Products
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const products = await ProductModel.find();
+    // In which am using a select method which is used for particular fields in get request
+    // const products = await ProductModel.find().select('name description price isActive');
+    const products=await ProductModel.find();
     if (!products.length) {
       throw new AppError("No products found", 404);
     }
