@@ -90,7 +90,7 @@ export const createProduct = async (req: Request, res: Response, next: NextFunct
 // Get All Products
 export const getAllProducts = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    // In which am using a select method which is used for particular fields in get request
+    // In which am using a select method which is used for fetch particular fields in get method
     // const products = await ProductModel.find().select('name description price isActive');
     const products=await ProductModel.find();
     if (!products.length) {
@@ -107,12 +107,11 @@ export const updateProduct = async (req: Request, res: Response, next: NextFunct
   try {
     const { id } = req.params;
     const { name, description, price, isActive, quantity, category, manufacturingAddress } = req.body; 
-
     const updatedProduct = await ProductModel.findByIdAndUpdate(id,{
         name,
         description,
         price,
-        isActive,
+        isActive:true,
         quantity,
         category,
         manufacturingAddress
