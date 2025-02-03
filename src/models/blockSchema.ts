@@ -11,11 +11,8 @@ interface BlockStyle {
     [key: string]: any;  // any property can be passed here depending on the block type
 }
 interface BlockProps {
-    text?: string;   
-    url?: string;    
-    alt?: string;    
-    backgroundImage?: string; 
-    // add more specific fields depending on the block type (if needed)
+    [key:string]:any;
+    
 }
 interface Block extends Document {
     type: BlockType;  // use the BlockType enum

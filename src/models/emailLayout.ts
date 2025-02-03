@@ -4,7 +4,6 @@ interface EmailLayout extends Document {
     canvasColor: string;
     textColor: string;
     fontFamily: string;
-    initialBgColor?: string;
     childrenIds: mongoose.Schema.Types.ObjectId[];  // References the IDs of the Block models
 }
 const emailLayoutSchema = new Schema<EmailLayout>({
@@ -12,7 +11,6 @@ const emailLayoutSchema = new Schema<EmailLayout>({
     canvasColor: { type: String, required: true },
     textColor: { type: String, required: true },
     fontFamily: { type: String, required: true },
-    initialBgColor: { type: String },
     childrenIds: {
         type: [mongoose.Schema.Types.ObjectId],
         ref: "Block", // Reference to Block collection
