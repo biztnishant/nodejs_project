@@ -18,6 +18,6 @@ const emailLayoutSchema = new Schema<EmailLayout>({
         ref: "Block", // Reference to Block collection
         required: true,
     }, // Array of Block IDs
-});
+}, { timestamps: true });
 const EmailLayoutModel = model<EmailLayout>("EmailLayout",emailLayoutSchema);
 export default EmailLayoutModel;
